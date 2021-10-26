@@ -1,6 +1,6 @@
 NB = 4  # number of coloumn of State (for AES = 4)
 NR = 10  # number of rounds cycle (if nb = 4 nr = 10)
-NK = 4  # byte key_length)
+NK = 4  # key_length in 4 bytes words)
 BLOCK_SIZE = 16
 S_BOX = [
     0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5, 0x30, 0x01, 0x67, 0x2b, 0xfe, 0xd7, 0xab, 0x76,

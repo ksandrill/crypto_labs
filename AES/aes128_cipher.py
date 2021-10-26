@@ -76,11 +76,11 @@ class Aes128Cipher:
             for byte in data:
                 aux_data.append(byte)
                 if len(aux_data) == BLOCK_SIZE:
-                    encoded_data.extend(self._encode_data(aux_data))
+                    encoded_data.extend(self.encode_data(aux_data))
                     del aux_data[:]
             if 0 < len(aux_data):
                 padding(aux_data, BLOCK_SIZE)
-                encoded_data.extend(self._encode_data(aux_data))
+                encoded_data.extend(self.encode_data(aux_data))
             output_path = os.path.join(os.path.dirname(input_path), 'encoded_' + os.path.basename(
                 input_path)) if output_path is None else output_path
             with open(output_path, 'xb') as ff:
@@ -94,17 +94,17 @@ class Aes128Cipher:
             for byte in data:
                 aux_data.append(byte)
                 if len(aux_data) == BLOCK_SIZE:
-                    decrypted_data.extend(self._decode_data(aux_data))
+                    decrypted_data.extend(self.decode_data(aux_data))
                     del aux_data[:]
             if 0 < len(aux_data):
                 padding(aux_data, BLOCK_SIZE)
-                decrypted_data.extend(self._decode_data(aux_data))
+                decrypted_data.extend(self.decode_data(aux_data))
         output_path = os.path.join(os.path.dirname(input_path), 'decoded_' + os.path.basename(
             input_path)) if output_path is None else output_path
         with open(output_path, 'xb') as ff:
             ff.write(bytes(decrypted_data))
 
-    def _encode_data(self, input_bytes: list[int]) -> list[int]:
+    def encode_data(self, input_bytes: list[int]) -> list[int]:
         state = [[] for _ in range(NB)]
         for r in range(NB):
             for c in range(NB):
@@ -126,7 +126,7 @@ class Aes128Cipher:
                 output[r + NB * c] = state[r][c]
         return output
 
-    def _decode_data(self, cipher: list[int]) -> list[int]:
+    def decode_data(self, cipher: list[int]) -> list[int]:
         state = [[] for _ in range(NB)]
         for r in range(NB):
             for c in range(NB):
